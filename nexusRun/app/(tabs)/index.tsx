@@ -43,7 +43,7 @@ export default function GameLinkScreen() {
         <Text style={styles.paragraph}>Prove Your Worth</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter Game Link"
+          placeholder="Enter Game Reference Code"
           placeholderTextColor={Colors.grey}
         />
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>
