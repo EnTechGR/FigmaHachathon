@@ -18,8 +18,8 @@ const GameSyncScreen = () => {
     // Define button color based on the game
     const colorMap: Record<Game, string> = {
       'League of Legends': '#C30A3C',
-      'Valorant': '#00B0B9',
-      'Teamflight Tactics': '#FF9F00',
+      'Valorant': '#C30A3C',
+      'Teamflight Tactics': '#C30A3C',
     };
     const buttonColor = colorMap[game];
 
