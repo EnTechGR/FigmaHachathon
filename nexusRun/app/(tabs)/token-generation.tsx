@@ -1,7 +1,14 @@
 import React from 'react';
+import { useRouter } from 'expo-router';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 const TokenGeneratedScreen = () => {
+    const router = useRouter();
+    
+      const handleSubmit = () => {
+        router.push('/game-sync');
+      };
+
   return (
     <View style={styles.container}>
       {/* Unique Token Generated Text */}
@@ -29,7 +36,7 @@ const TokenGeneratedScreen = () => {
           <Text style={styles.tokenNumber}>15241578750190521</Text>
         </View>
         <Text style={styles.savePrompt}>Save in secure location</Text>
-        <TouchableOpacity style={styles.doneButton}>
+        <TouchableOpacity style={styles.doneButton} onPress={handleSubmit}>
           <Text style={styles.doneButtonText}>Done</Text>
         </TouchableOpacity>
       </View>
