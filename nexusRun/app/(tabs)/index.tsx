@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, StatusBar, ImageBackground } from 'react-native'; // Import ImageBackground
 import { useFonts } from 'expo-font';
+import { useRouter } from 'expo-router';
 import Colors from '../../constants/Colors';
 
 export default function GameLinkScreen() {
@@ -9,9 +10,16 @@ export default function GameLinkScreen() {
     'Playfair': require('../../assets/fonts/PlayfairDisplay-VariableFont_wght.ttf'),
   });
 
+  const router = useRouter();
+
   if (!fontsLoaded) {
     return null;
   }
+
+
+  const handleSubmit = () => {
+    router.push('/game-start');
+  };
 
   return (
     <ImageBackground // Use ImageBackground instead of View
@@ -38,7 +46,7 @@ export default function GameLinkScreen() {
           placeholder="Enter Game Link"
           placeholderTextColor={Colors.grey}
         />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
       </View>
