@@ -1,7 +1,14 @@
 import React from 'react';
+import { useRouter } from 'expo-router';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
 const CreateProfileScreen = () => {
+  const router = useRouter();
+
+  const handleSubmit = () => {
+    router.push('/token-generation');
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create Profile</Text>
@@ -36,7 +43,7 @@ const CreateProfileScreen = () => {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.submitButton}>
+      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
         <Text style={styles.submitText}>Submit</Text>
       </TouchableOpacity>
 
