@@ -1,40 +1,67 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+
+// Define a union type for the game names
+type Game = 'League of Legends' | 'Valorant' | 'Teamflight Tactics';
 
 const GameSyncScreen = () => {
+  const [selectedGame, setSelectedGame] = useState<Game | null>(null);
+
+  // Function to handle button press
+  const handleButtonPress = (game: Game) => {
+    // If the same button is pressed, toggle selection off, otherwise set the selected game
+    setSelectedGame(selectedGame === game ? null : game);
+  };
+
+  // Function to get button style based on selection
+  const getButtonStyle = (game: Game) => {
+    // Define button color based on the game
+    const colorMap: Record<Game, string> = {
+      'League of Legends': '#C30A3C',
+      'Valorant': '#00B0B9',
+      'Teamflight Tactics': '#FF9F00',
+    };
+    const buttonColor = colorMap[game];
+
+    return {
+      backgroundColor: selectedGame === game ? buttonColor : '#000',
+      borderColor: selectedGame === game ? buttonColor : buttonColor,
+    };
+  };
+
   return (
-    <View style={styles.container}>
-      {/* Top Bar */}
-      <View style={styles.topBar}>
-        <Text style={styles.timeText}>9:41</Text>
-      </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.contentContainer}>
+        {/* Top Bar */}
+        <View style={styles.topBar}>
+          <Text style={styles.timeText}>9:41</Text>
+        </View>
 
-      {/* Title */}
-      <Text style={styles.title}>Game Sync</Text>
+        {/* Title */}
+        <Text style={styles.title}>Game Sync</Text>
 
-      {/* Game Options */}
-      <TouchableOpacity style={styles.gameButton}>
-        <Text style={styles.gameButtonText}>League of Legends</Text>
-      </TouchableOpacity>
+        {/* Game Options */}
+        {['League of Legends', 'Valorant', 'Teamflight Tactics'].map((game) => (
+          <TouchableOpacity
+            key={game}
+            style={[styles.gameButton, getButtonStyle(game as Game)]}
+            onPress={() => handleButtonPress(game as Game)}
+          >
+            <Text style={styles.gameButtonText}>{game}</Text>
+          </TouchableOpacity>
+        ))}
 
-      <TouchableOpacity style={styles.gameButton}>
-        <Text style={styles.gameButtonText}>Valorant</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.gameButton}>
-        <Text style={styles.gameButtonText}>Teamflight Tactics</Text>
-      </TouchableOpacity>
-
-      {/* Done Button */}
-      <TouchableOpacity style={styles.doneButton}>
-        <Text style={styles.doneButtonText}>Done</Text>
-      </TouchableOpacity>
+        {/* Done Button */}
+        <TouchableOpacity style={styles.doneButton}>
+          <Text style={styles.doneButtonText}>Done</Text>
+        </TouchableOpacity>
+      </ScrollView>
 
       {/* Bottom Bar */}
       <View style={styles.bottomBar}>
         <View style={styles.indicator} />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -42,6 +69,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
+  },
+  contentContainer: {
+    paddingTop: 60,
+    paddingBottom: 100,
+    alignItems: 'center',
   },
   topBar: {
     flexDirection: 'row',
@@ -61,26 +93,21 @@ const styles = StyleSheet.create({
     fontFamily: 'SF Pro',
   },
   title: {
-    position: 'absolute',
-    top: 102,
-    left: 40,
     color: '#fff',
     fontSize: 40,
     fontFamily: 'Playfair',
     textAlign: 'center',
     lineHeight: 67,
+    marginTop: 120,
   },
   gameButton: {
     width: '80%',
     height: 60,
-    backgroundColor: '#C30A3C',
     marginTop: 16,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#B5000A',
     borderRadius: 4,
-    alignSelf: 'center',
   },
   gameButtonText: {
     color: '#fff',
@@ -92,13 +119,12 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 60,
     backgroundColor: '#C30A3C',
-    marginTop: 80,
+    marginTop: 30,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#B5000A',
     borderRadius: 4,
-    alignSelf: 'center',
   },
   doneButtonText: {
     color: '#fff',
