@@ -18,7 +18,7 @@ export default function GameLinkScreen() {
 
 
   const handleSubmit = () => {
-    router.push('/game-start');
+    router.push('/create-profile');
   };
 
   return (
